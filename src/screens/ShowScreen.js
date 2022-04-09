@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { Context } from "./context/BlogContext";
 
-const ShowScreen = () => {
-  <View>
-    <Text>Show Screen</Text>
-  </View>;
+const ShowScreen = ({ route, navigation }) => {
+  const { state } = useContext(Context);
+  const { id } = route.params;
+
+  const blogPost = state.find((blogPost) => blogPost.id === id);
+
+  return (
+    <View>
+      <Text>{blogPost.title}</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  
 });
 
 export default ShowScreen;

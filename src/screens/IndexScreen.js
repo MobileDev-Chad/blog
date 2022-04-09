@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useLayoutEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -8,9 +8,21 @@ import {
 } from "react-native";
 import { Context } from "./context/BlogContext";
 import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 const IndexScreen = ({ navigation }) => {
   const { state, addBlogPost, removeBlogPost } = useContext(Context);
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+          <Feather name="plus" size={30} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
   return (
     <View>
       <TouchableOpacity onPress={addBlogPost}>
@@ -21,7 +33,9 @@ const IndexScreen = ({ navigation }) => {
         keyExtractor={(blogPost) => blogPost.title}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity onPress={() => navigation.navigate("Show", {id: item.id})}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Show", { id: item.id })}
+            >
               <View style={styles.row}>
                 <Text style={styles.title}>{item.title}</Text>
                 <TouchableOpacity onPress={() => removeBlogPost(item.id)}>
