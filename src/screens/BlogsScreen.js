@@ -10,7 +10,7 @@ import { Context } from "./context/BlogContext";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
-const IndexScreen = ({ navigation }) => {
+const BlogsScreen = ({ navigation }) => {
   const { state, addBlogPost, removeBlogPost } = useContext(Context);
 
   React.useLayoutEffect(() => {
@@ -25,9 +25,6 @@ const IndexScreen = ({ navigation }) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={addBlogPost}>
-        <Text>Add Post</Text>
-      </TouchableOpacity>
       <FlatList
         data={state}
         keyExtractor={(blogPost) => blogPost.title}
@@ -67,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IndexScreen;
+export default BlogsScreen;

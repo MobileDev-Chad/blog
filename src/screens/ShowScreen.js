@@ -9,19 +9,20 @@ const ShowScreen = ({ route, navigation }) => {
 
   const blogPost = state.find((blogPost) => blogPost.id === id);
 
-//   React.useLayoutEffect(() => {
-//     navigation.setOptions({
-//       headerRight: () => (
-//         <TouchableOpacity onPress={() => navigation.navigate("Create")}>
-//           <FontAwesome name="pencil" size={30} />
-//         </TouchableOpacity>
-//       ),
-//     });
-//   }, [navigation]);
+   React.useLayoutEffect(() => {
+     navigation.setOptions({
+       headerRight: () => (
+         <TouchableOpacity onPress={() => navigation.navigate("Edit", {id})}>
+           <FontAwesome name="pencil" size={30} />
+         </TouchableOpacity>
+       ),
+     });
+   }, [navigation]);
 
   return (
     <View>
       <Text>{blogPost.title}</Text>
+      <Text>{blogPost.content}</Text>
     </View>
   );
 };
