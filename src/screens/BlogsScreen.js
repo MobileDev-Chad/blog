@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useContext } from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -11,9 +11,20 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
 const BlogsScreen = ({ navigation }) => {
-  const { state, addBlogPost, removeBlogPost } = useContext(Context);
+  const { state, removeBlogPost, getBlogPosts } = useContext(Context);
 
-  React.useLayoutEffect(() => {
+  useEffect(() => {
+    getBlogPosts();
+    const unsubscribe = navigation.addListener("focus", () => {
+      getBlogPosts();
+    });
+
+    return () => {
+      unsubscribe.remove;
+    };
+  }, [navigation]);
+
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate("Create")}>
